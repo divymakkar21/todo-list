@@ -2,8 +2,14 @@ export const enum IPriority {
   HIGH = 'high',
   MEDIUM = 'medium',
   LOW = 'low'
-
 }
+
+export enum IPriorityNumber {
+  LOW = 1,
+  MEDIUM = 2,
+  HIGH = 3,
+}
+
 export type ITodo = {
   id: number
   title: string
@@ -58,4 +64,13 @@ export type TaskDetailsProps = {
 
 export type PriorityTagProps = {
   priority: IPriority;
+}
+
+export interface TodoFilterProps {
+  filterPriority: string;
+  setFilterPriority: (priority: string) => void;
+  showCompleted: boolean;
+  setShowCompleted: (completed: boolean) => void;
+  sortTodos: () => void;
+  isSorted: boolean
 }
