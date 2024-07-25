@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { EditTodoProps, ITodo, ITodoItem } from './utils/interface';
@@ -6,7 +6,14 @@ import TaskForm from './components/TodoForm';
 import TaskList from './components/TodoList';
 
 function App() {
-  const [todos, setTodos] = useState<ITodo[]>([]);
+  const savedTodos = localStorage.getItem('todos');
+  const [todos, setTodos] = useState<ITodo[]>(() => {
+    return savedTodos ? JSON.parse(savedTodos) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }, [todos]);
 
   const addTodo = (task: ITodoItem) => {
     setTodos([...todos, { ...task, id: Date.now() }]);
