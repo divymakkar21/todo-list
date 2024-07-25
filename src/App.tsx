@@ -1,24 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { EditTodoProps, ITodo, ITodoItem } from './utils/interface';
+import TaskForm from './components/TodoForm';
+import TaskList from './components/TodoList';
 
 function App() {
+  const [todos, setTodos] = useState<ITodo[]>([]);
+
+  const addTodo = (task: ITodoItem) => {
+    setTodos([...todos, { ...task, id: Date.now() }]);
+  };
+
+  const removeTodo = (id: number) => {
+    setTodos(todos.filter(todo => todo.id !== id));
+  };
+
+  const editTodo = (id: number, updatedTask: ITodoItem) => {
+    setTodos(todos.map(todo => todo.id === id ? { ...todo, ...updatedTask } : todo));
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App max-w-lg mx-auto p-5">
+      <h1 className='text-center text-2xl font-bold mb-3'>Todo List</h1>
+      <TaskForm addTask={addTodo} />
+      <TaskList todos={todos} removeTodo={removeTodo} editTodo={editTodo} />
     </div>
   );
 }
