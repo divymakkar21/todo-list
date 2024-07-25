@@ -9,12 +9,14 @@ export type ITodo = {
   title: string
   description?: string
   priority: IPriority
+  completed?: boolean
 }
 
 export type ITodoItem = {
   title: string
   description?: string
   priority: IPriority
+  completed?: boolean
 }
 
 export interface TodoFormFieldsProps {
@@ -51,6 +53,7 @@ export type TaskDetailsProps = {
   todo: ITodoItem,
   onEdit: () => void,
   onRemove: () => void
+  onComplete: () => void
 }
 
 export type PriorityTagProps = {

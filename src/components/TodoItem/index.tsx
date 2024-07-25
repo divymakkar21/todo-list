@@ -8,9 +8,10 @@ import TodoItemCard from "../TodoItemCard";
 function TodoItem({ task, removeTodo, editTodo }: TodoListItemProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedTodo, setEditedTodo] = useState({
-    title: task.title,
-    description: task.description,
-    priority: task.priority,
+    title: task?.title,
+    description: task?.description,
+    priority: task?.priority,
+    completed: task?.completed || false
   });
 
   const handleChange = (attr: string, value: string | IPriority) => {
@@ -26,8 +27,12 @@ function TodoItem({ task, removeTodo, editTodo }: TodoListItemProps) {
     setIsEditing(false);
   };
 
+  const handleComplete = () => {
+    editTodo(task.id, { ...task, completed: !task?.completed });
+  }
+
   return (
-    <div className="border-2 flex flex-col rounded p-3 shadow my-4">
+    <div className="border-2 flex flex-col rounded shadow my-4">
       {isEditing ? (
         <TodoFormFields
           todo={editedTodo}
@@ -39,6 +44,7 @@ function TodoItem({ task, removeTodo, editTodo }: TodoListItemProps) {
       ) : (
         <TodoItemCard
           todo={task}
+          onComplete={handleComplete}
           onEdit={() => setIsEditing(true)}
           onRemove={() => removeTodo(task.id)}
         />
