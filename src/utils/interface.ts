@@ -1,12 +1,28 @@
+export const enum IPriority {
+  HIGH = 'high',
+  MEDIUM = 'medium',
+  LOW = 'low'
+
+}
 export type ITodo = {
   id: number
   title: string
   description?: string
+  priority: IPriority
 }
 
 export type ITodoItem = {
   title: string
   description?: string
+  priority: IPriority
+}
+
+export interface TodoFormFieldsProps {
+  todo: ITodoItem,
+  handleChange: (attr: string, value: IPriority) => void,
+  handleSubmit: (e: React.FormEvent) => void,
+  isEditing?: boolean,
+  setIsEditing?: (value: boolean) => void
 }
 
 export type EditTodoProps = {
@@ -29,4 +45,14 @@ export type TodoListItemProps = {
   task: ITodo,
   removeTodo: (id: number) => void
   editTodo: (id: number, task: ITodoItem) => void
+}
+
+export type TaskDetailsProps = {
+  todo: ITodoItem,
+  onEdit: () => void,
+  onRemove: () => void
+}
+
+export type PriorityTagProps = {
+  priority: IPriority;
 }
