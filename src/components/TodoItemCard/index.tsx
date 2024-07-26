@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faEdit, faSquareCheck } from "@fortawesome/free-solid-svg-icons";
+import {  faSquareCheck as emptyBox } from "@fortawesome/free-regular-svg-icons";
 import { TaskDetailsProps } from "../../utils/interface";
 import PriorityTag from "../PriorityTag";
 
@@ -26,13 +27,13 @@ const TodoItemCard = ({ todo, onEdit, onRemove, onComplete }: TaskDetailsProps) 
           height={24}
           color="#FF5733"
         />
-        <FontAwesomeIcon
+        { <FontAwesomeIcon
           onClick={onComplete}
-          icon={faSquareCheck}
+          icon={todo?.completed ? faSquareCheck : emptyBox}
           width={24}
           height={24}
-          color="#228B22"
-        />
+          color={todo?.completed ?  "#228B22" : "#000000"}
+        />}
       </div>
     </div>
   );

@@ -3,7 +3,7 @@ import { IPriority, TodoFormFieldsProps } from '../../utils/interface';
 
 const TodoFormFields = ({ todo, handleChange, handleSubmit, isEditing, setIsEditing }: TodoFormFieldsProps) => {
   return (
-    <form onSubmit={handleSubmit} className='flex mb-5 flex-col'>
+    <form onSubmit={handleSubmit} className='flex mb-5 p-5 flex-col'>
       <input
         type="text"
         placeholder="Todo title"

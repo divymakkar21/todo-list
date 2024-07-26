@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { IPriority, TodoListItemProps } from "../../utils/interface";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
 import TodoFormFields from "../TodoFormFields";
 import TodoItemCard from "../TodoItemCard";
+import { motion } from "framer-motion";
 
 function TodoItem({ task, removeTodo, editTodo }: TodoListItemProps) {
   const [isEditing, setIsEditing] = useState(false);
@@ -11,7 +10,7 @@ function TodoItem({ task, removeTodo, editTodo }: TodoListItemProps) {
     title: task?.title,
     description: task?.description,
     priority: task?.priority,
-    completed: task?.completed || false
+    completed: task?.completed || false,
   });
 
   const handleChange = (attr: string, value: string | IPriority) => {
@@ -29,10 +28,16 @@ function TodoItem({ task, removeTodo, editTodo }: TodoListItemProps) {
 
   const handleComplete = () => {
     editTodo(task.id, { ...task, completed: !task?.completed });
-  }
+  };
 
   return (
-    <div className="border-2 flex flex-col rounded shadow my-4">
+    <motion.div
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: 30, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="border-2 flex flex-col rounded shadow my-4"
+    >
       {isEditing ? (
         <TodoFormFields
           todo={editedTodo}
@@ -49,7 +54,7 @@ function TodoItem({ task, removeTodo, editTodo }: TodoListItemProps) {
           onRemove={() => removeTodo(task.id)}
         />
       )}
-    </div>
+    </motion.div>
   );
 }
 

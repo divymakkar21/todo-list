@@ -1,5 +1,5 @@
-import React from 'react';
-
+import React from 'react'
+import { AnimatePresence } from 'framer-motion';
 import { TodoListProps } from '../../utils/interface';
 import TodoItem from '../TodoItem';
 
@@ -10,7 +10,7 @@ function TodoList({ todos, removeTodo, editTodo }: TodoListProps ) {
   }
 
   return (
-    <ul>
+    <AnimatePresence>
       {todos.map(todo => (
         <TodoItem
           key={todo.id}
@@ -19,7 +19,7 @@ function TodoList({ todos, removeTodo, editTodo }: TodoListProps ) {
           editTodo={editTodo}
         />
       ))}
-    </ul>
+    </AnimatePresence>
   );
 }
 
